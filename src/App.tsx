@@ -1,30 +1,10 @@
-import './App.css';
-
-import ButtonPrimary from './components/ButtonPrimary';
-import ButtonSecondary from './components/ButtonSecondary';
-import HeaderClient from './components/HeaderClient/index';
-import ProductDetailsCard from './components/ProductDetailsCard';
+import Catalog from './routes/Catalog';
+import ProductDetails from './routes/ProductDetails';
 
 function App() {
 
   return (
-    <>
-      <HeaderClient />
-
-      <main>
-        <section id="product-details-section" className="ec-container"> 
-
-          <ProductDetailsCard />
-          
-          <div className="ec-btn-container">
-            <ButtonPrimary />
-            <ButtonSecondary />    
-          </div>
-
-        </section>
-      </main>
-    </>
-
+    <Catalog />
   )
 
 }

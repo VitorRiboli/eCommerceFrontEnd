@@ -263,23 +263,6 @@ nav a {
   width: 100%;
 }
 
-.ec-btn-next-page {
-  border: 1px solid var(--color-btn-primary);
-  background-color: var(--color-btn-inverse);
-  color: var(--color-btn-primary);
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.ec-btn-next-page:hover {
-  background-color:  var(--color-card-border);
-}
-
 .ec-btn-login {
   border: none;
   background-color: var(--color-btn-primary);
@@ -294,47 +277,6 @@ nav a {
 /* -------------------------------- */
 /* Seach Bar Styles */
 
-.ec-search-bar {
-  height: 40px;
-  display: flex;
-  color: var(--color-font-primary);
-}
-
-.ec-search-bar button, .ec-search-bar input {
-  border: 1px solid var(--color-card-border);
-}
-
-.ec-search-bar input {
-  width: calc(100% - 80px);
-  border-right: none;
-  border-left: none;
-  padding: 0 10px;
-  font-size: 16px;
-  color: var(--color-font-primary);
-}
-
-.ec-search-bar input:focus {
-  outline: none;
-}
-
-.ec-search-bar input::placeholder {
-  color: var(--color-font-placeholder);
-}
-
-.ec-search-bar button {
-  width: 40px;
-  color: var(--color-font-primary);
-}
-
-.ec-search-bar button[type="submit"] {
-  border-radius: 4px 0 0 4px;
-  border-right: none;
-}
-
-.ec-search-bar button[type="reset"] {
-  border-radius: 0 4px 4px 0;
-  border-left: none;
-}
 
 /* -------------------------------- */
 /* Form Styles */
