@@ -52,10 +52,6 @@ header {
   border-bottom: 2px solid var(--color-btn-primary);
 }
 
-.ec-header-client {
-  background-color: var(--color-bg-secondary);
-  color: var(--color-font-tertiary);
-}
 
 .ec-header-admin {
   background-color: var(--color-bg-quaternary);
@@ -130,7 +126,8 @@ nav a {
 .ec-login {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: left;
+  flex-direction: column;
 }
 
 .ec-login h2 {
