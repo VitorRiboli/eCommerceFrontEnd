@@ -1,0 +1,14 @@
+.ec-category {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background-color: var(--color-bg-tertiary);
+  height: 30px;
+  padding: 20px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-font-tertiary);
+  font-size: 12px;
+  font-weight: 700;
+}

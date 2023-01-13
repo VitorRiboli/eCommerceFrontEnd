@@ -1,0 +1,8 @@
+.ec-btn-orange {
+  background-color: var(--color-btn-primary);
+  color: var(--color-btn-inverse);
+}
+
+.ec-btn-orange:hover {
+  background-color: var(--color-btn-primary-hover);
+}

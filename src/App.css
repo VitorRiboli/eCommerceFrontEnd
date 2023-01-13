@@ -2,55 +2,7 @@
   padding: 20px 0;
 }
 
-.ec-product-details-top {
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-}
 
-.ec-product-details-top img {
-  width: 220px;
-}
-
-.ec-product-details-bottom {
-  padding: 10px 20px;
-}
-
-.ec-product-details-bottom h3 {
-  color: var(--color-font-secondary);
-  font-size: 20px;
-}
-
-.ec-product-details-bottom h4 {
-  color: var(--color-font-primary);
-  font-size: 13px;
-}
-
-.ec-product-details-bottom p {
-  margin: 10px 0;
-  color: var(--color-font-primary);
-  font-size: 13px;
-}
-
-.ec-category-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.ec-category {
-  margin-right: 20px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  background-color: var(--color-bg-tertiary);
-  height: 30px;
-  padding: 20px ;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-font-tertiary);
-  font-size: 12px;
-  font-weight: 700;
-}
 
 
 

@@ -1,12 +1,12 @@
 import './styles.css';
 
 import cartIcon from '../../assets/images/cart.svg';
-import IconUser from './IconUser';
+import IconUser from './iconUser';
 
 
 export default function HeaderClient() {
   return (
-    
+
     <>
       <header className="ec-header-client">
         <nav className="ec-container">

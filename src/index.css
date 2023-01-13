@@ -49,7 +49,7 @@ header {
   display: flex;
   align-items: center;
   padding: 0 20px;
-  border-bottom: 2px solid var(--color-btn-primary);
+  border-bottom: 3px solid var(--color-btn-primary);
 }
 
 
@@ -76,11 +76,12 @@ nav {
 
 nav h1 {
   font-size: 16px;
+  letter-spacing: 2px;
   text-shadow: 
-               -1px -1px 0px var(--color-btn-primary), 
-               -1px 1px 0px var(--color-btn-primary),                    
-                1px -1px 0px var(--color-btn-primary),                  
-                1px 0px 0px var(--color-btn-primary);
+               -2px -2px 0px var(--color-btn-primary), 
+               -2px 2px 0px var(--color-btn-primary),                    
+                2px -2px 0px var(--color-btn-primary),                  
+                2px 0px 0px var(--color-btn-primary);
 }
 
 nav h2 {
@@ -260,25 +261,6 @@ nav a {
   transition: 0.3s;
 
   width: 100%;
-}
-
-.ec-btn-blue {
-  background-color: var(--color-btn-primary);
-  color: var(--color-btn-inverse);
-}
-
-.ec-btn-blue:hover {
-  background-color: var(--color-btn-primary-hover);
-}
-
-.ec-btn-white {
-  background-color: var(--color-btn-inverse);
-  color:  var(--color-btn-primary);
-  border: 1px solid  var(--color-btn-primary);
-}
-
-.ec-btn-white:hover {
-  background-color: var(--color-btn-inverse-hover);
 }
 
 .ec-btn-next-page {
