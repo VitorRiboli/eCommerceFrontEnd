@@ -1,31 +1,30 @@
-import './styles.css'
+import "./styles.css";
 
-import computerImg from "../../assets/images/computer.png";
-import ProductCategory from '../ProductCategory';
+import ProductCategory from "../ProductCategory";
 
-export default function ProductDetailsCard() {
+import { ProductDTO } from "../../models/product";
+
+type Props = {
+  product: ProductDTO;
+};
+
+export default function ProductDetailsCard({ product }: Props) {
   return (
-    <>
-      <div className="ec-card ec-mb20">
-        <div className="ec-product-details-top ec-lb">
-          <img src={computerImg} alt="Computador"></img>
-        </div>
+    <div className="ec-card ec-mb20">
+      <div className="ec-product-details-top ec-lb">
+        <img src={product.imgUrl} alt={product.name} />
+      </div>
 
-        <div className="ec-product-details-bottom">
-          <h3>R$ 5000,00</h3>
-          <h4>Computador Gamer XT</h4>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione
-            dolores delectus dolor sed repellendus iusto quo ullam magnam, saepe
-            vero ipsam temporibus id eius provident reiciendis pariatur
-            necessitatibus possimus quibusdam?
-          </p>
-          <div className="ec-category-container">
-            <ProductCategory />
-            <ProductCategory />
-          </div>
+      <div className="ec-product-details-bottom">
+        <h3>R$ {product.price.toFixed(2)}</h3>
+        <h4>{product.name}</h4>
+        <p>{product.description}</p>
+        <div className="ec-category-container">
+          {product.categories.map((item) => {
+            return <ProductCategory name={item.name} />;
+          })}
         </div>
       </div>
-    </>
+    </div>
   );
 }
