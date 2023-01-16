@@ -1,19 +1,24 @@
 import "./styles.css";
 
-import ComputerImg from "../../assets/images/computer.png";
+import { ProductDTO } from "../../models/product";
 
-export default function CatalogCard() {
+
+type Props = {
+  product: ProductDTO;
+}
+
+
+export default function CatalogCard({product} : Props) {
   return (
     <>
       <div className="ec-card">
         <div className="ec-catalog-card-top ec-lb">
-          <img src={ComputerImg} alt="Computer" />
+          <img src={product.imgUrl} alt={product.name} />
         </div>
         <div className="ec-catalog-card-bottom">
-          <h3>R$ 5000,00</h3>
+          <h3>R$ {product.price.toFixed(2)}</h3>
           <h4>
-            Computador Gamer XT com suporte e 16GB de memória e processador
-            turbo plus
+            {product.description}
           </h4>
         </div>
       </div>
