@@ -21,7 +21,7 @@ export default function ProductDetailsCard({ product }: Props) {
         <p>{product.description}</p>
         <div className="ec-category-container">
           {product.categories.map((item) => {
-            return <ProductCategory name={item.name} />;
+            return <ProductCategory key={item.id} name={item.name} />;
           })}
         </div>
       </div>

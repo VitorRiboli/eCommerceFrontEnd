@@ -1,9 +1,13 @@
 import './styles.css';
 
-export default function ButtonSecondary() {
+type Props = {
+  text: string;
+}
+
+export default function ButtonSecondary({text}: Props) {
   return (
     <>
-      <a className="ec-btn ec-btn-white">Inicio</a>
+      <a className="ec-btn ec-btn-white">{text}</a>
     </>
   );
 }
