@@ -1,43 +1,29 @@
 import "./styles.css";
 
+import { useParams } from "react-router-dom";
+
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import ButtonSecondary from "../../../components/ButtonSecondary";
-import HeaderClient from "../../../components/HeaderClient";
 import ProductDetailsCard from "../../../components/ProductDetailsCard";
 
-import { ProductDTO } from "../../../models/product";
+import * as productService from "../../../services/product-service";
 
-const product: ProductDTO = {
-  id: 2,
-  name: "Notebook DELL",
-  description:
-    "Seja para verificar e-mails, estudar, navegar nas redes sociais ou fazer streaming de música e filmes, os notebooks Inspiron mantém você conectado ao que mais importa.",
-  imgUrl: "https://m.media-amazon.com/images/I/61ysTJmINQL._AC_SY450_.jpg",
-  price: 5000.0,
-
-  categories: [
-    {
-      id: 1,
-      name: "Eletrônicos",
-    },
-    {
-      id: 2,
-      name: "Importados",
-    },
-    {
-      id: 3,
-      name: "Computadores",
-    },
-  ],
-};
 
 export default function ProductDetails() {
+
+  /*Aqui vai ler os parametros da rota*/
+  const params = useParams()
+
+  const product = productService.findById(Number(params.productId));
+
   return (
     /*  <HeaderClient /> */
-
     <main>
       <section id="product-details-section" className="ec-container">
-        <ProductDetailsCard product={product} />
+        {
+          product && /*Testando se o objeto exite, se não é undefined, se ele não for, pode renderizar */
+          <ProductDetailsCard product={product} />
+        }
 
         <div className="ec-btn-container">
           <ButtonPrimary text="Comprar" />

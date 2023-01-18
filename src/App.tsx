@@ -11,8 +11,9 @@ function App() {
         <Route path="/" element={<ClientHome />}> {/*Rota 1*/}
           <Route index element={<Catalog />} />
           <Route path="catalog" element={<Catalog />} />
-          <Route path="product-details" element={<ProductDetails />} />{/*Rota aninhada*/}
+          <Route path="product-details/:productId" element={<ProductDetails />} />{/*Rota aninhada*/}
         </Route> {/*Rota 1*/}
+
 
         {/*Rota 2*/}
       </Routes>
