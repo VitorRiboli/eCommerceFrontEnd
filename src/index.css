@@ -6,6 +6,7 @@
   --color-bg-tertiary: #636363;
   --color-bg-quaternary: #0ab01b;
   --color-bg-quinternary: #F5E23B;
+  
 
   --color-card-bg: #fff;
   --color-card-border: #d9d9d9;
@@ -20,6 +21,7 @@
   --color-font-tertiary: #fff;
   --color-font-quinternary: #F5E23B;
   --color-font-placeholder: #d9d9d9;
+  --color-font-title: #ff6500;
 
   --color-error: #f33;
 }
@@ -72,16 +74,6 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-nav h1 {
-  font-size: 16px;
-  letter-spacing: 2px;
-  text-shadow: 
-               -2px -2px 0px var(--color-btn-primary), 
-               -2px 2px 0px var(--color-btn-primary),                    
-                2px -2px 0px var(--color-btn-primary),                  
-                2px 0px 0px var(--color-btn-primary);
 }
 
 nav h2 {

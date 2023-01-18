@@ -7,12 +7,11 @@ import ButtonSecondary from "../../../components/ButtonSecondary";
 import ProductDetailsCard from "../../../components/ProductDetailsCard";
 
 import * as productService from "../../../services/product-service";
-
+import { Link } from "react-router-dom";
 
 export default function ProductDetails() {
-
   /*Aqui vai ler os parametros da rota*/
-  const params = useParams()
+  const params = useParams();
 
   const product = productService.findById(Number(params.productId));
 
@@ -20,14 +19,16 @@ export default function ProductDetails() {
     /*  <HeaderClient /> */
     <main>
       <section id="product-details-section" className="ec-container">
-        {
-          product && /*Testando se o objeto exite, se não é undefined, se ele não for, pode renderizar */
+        {product /*Testando se o objeto exite, se não é undefined, se ele não for, pode renderizar */ && (
           <ProductDetailsCard product={product} />
-        }
+        )}
 
         <div className="ec-btn-container">
           <ButtonPrimary text="Comprar" />
-          <ButtonSecondary text="Inicio" />
+
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <ButtonSecondary text="Inicio" />
+          </Link>
         </div>
       </section>
     </main>
