@@ -8,6 +8,13 @@
   font-weight: 900;
   color: var(--color-font-tertiary);
   letter-spacing: .2rem;
-  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: var(--color-font-title);
+  font-family: 'Roboto', sans-serif;
+}
+
+@media (max-width: 576px ){
+  .header-title {
+    font-size: 30px;
+  }
 }
