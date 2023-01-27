@@ -57,7 +57,7 @@ export default function Cart() {
         </div>
 
         <div className="ec-btn-container">
-          <a className="ec-btn ec-btn-blue" href="">
+          <a className="ec-btn ec-btn-orange" href="">
             Finalizar Pedido
           </a>
           <a className="ec-btn ec-btn-white" href="">
