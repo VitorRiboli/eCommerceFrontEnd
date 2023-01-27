@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { OrderDTO, OrderItemDTO } from "../../../models/order";
 
@@ -20,18 +20,9 @@ const item2 : OrderItemDTO = new OrderItemDTO (
 )
 
 
-
-
 export default function Cart() {
 
-  const cart : OrderDTO = new OrderDTO ();
-  
-  useEffect(() => {
-    cart.items.push(item1); 
-    cart.items.push(item2);
-
-    cartService.saveCart(cart);
-  }, []);
+  const [cart, setCart] = useState<OrderDTO>(cartService.getCart);
 
 
 
@@ -40,7 +31,8 @@ export default function Cart() {
       <section id="cart-container-section" className="ec-container">
         <div className="ec-cart ec-mb20">
 
-          {cart.items.map((item) => (
+          { cart &&
+          cart.items.map((item) => (
             <div key={item.productId} className="ec-cart-item-container ec-lb">
               <div className="ec-cart-item-left">
                 <img src={item.imgUrl} alt={item.name} />
