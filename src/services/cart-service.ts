@@ -8,6 +8,7 @@ export function saveCart(cart : OrderDTO) {
   cartRepository.save(cart);
 }
 
+//Função para acessar e obter o cart
 export function getCart() : OrderDTO {
   return cartRepository.get();
 }
@@ -54,5 +55,21 @@ export function increaseItem(productId : number){
   if(item) {
     item.quantity++ //Incrementando a quantidade
     cartRepository.save(cart) //salvando com a quantidade atualziada
+  }
+}
+
+//Função decrementar a quantidade do mesmo produto
+export function decreaseItem(productId : number) {
+  const cart = cartRepository.get();
+
+  const item = cart.items.find(x => x.productId === productId);
+
+  if(item) {
+    item.quantity--
+    if(item.quantity < 1){
+      //Caso chegue em 0, filtrar uma nova lista retirando-o dela
+      cart.items = cart.items.filter(x => x.productId !== productId);
+    } 
+    cartRepository.save(cart);
   }
 }

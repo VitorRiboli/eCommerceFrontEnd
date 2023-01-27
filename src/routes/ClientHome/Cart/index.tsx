@@ -23,6 +23,12 @@ export default function Cart() {
     setCart(cartService.getCart); //Chamando o setCart para atualizar a pagina
   }
 
+  function handleDecreaseItem(productId : number) {
+    cartService.decreaseItem(productId);
+
+    setCart(cartService.getCart);
+  }
+
   return (
     <main>
       <section id="cart-container-section" className="ec-container">
@@ -47,7 +53,7 @@ export default function Cart() {
                     <div className="ec-cart-item-description">
                       <h3>{item.name}</h3>
                       <div className="ec-cart-item-quantity-container">
-                        <div  
+                        <div onClick={() => handleDecreaseItem(item.productId)}
                         className="ec-cart-item-quantity-btn">-</div>
                     
                         <p>{item.quantity}</p>
