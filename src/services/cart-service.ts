@@ -40,3 +40,19 @@ export function addProduct(product : ProductDTO) {
 export function clearCart() {
   cartRepository.clear();
 }
+
+//Função para Incrementar mais quantidade do mesmo produto
+export function increaseItem(productId : number){
+  //1-Acessar o carrinho
+  const cart = cartRepository.get();
+
+  /*2-Verificar se o item com o productId passado existe, 
+  nesta função se o find não encontrar o item com o mesmo id, retorna undefined
+  */
+  const item = cart.items.find(x => x.productId === productId);
+  //Verificando, se encontrar cai dentro do if
+  if(item) {
+    item.quantity++ //Incrementando a quantidade
+    cartRepository.save(cart) //salvando com a quantidade atualziada
+  }
+}

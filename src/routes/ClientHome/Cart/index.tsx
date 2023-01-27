@@ -17,6 +17,12 @@ export default function Cart() {
     setCart(cartService.getCart);
   }
 
+  function handleIncreaseItem(productId : number) {
+    cartService.increaseItem(productId);
+
+    setCart(cartService.getCart); //Chamando o setCart para atualizar a pagina
+  }
+
   return (
     <main>
       <section id="cart-container-section" className="ec-container">
@@ -41,9 +47,13 @@ export default function Cart() {
                     <div className="ec-cart-item-description">
                       <h3>{item.name}</h3>
                       <div className="ec-cart-item-quantity-container">
-                        <div className="ec-cart-item-quantity-btn">-</div>
+                        <div  
+                        className="ec-cart-item-quantity-btn">-</div>
+                    
                         <p>{item.quantity}</p>
-                        <div className="ec-cart-item-quantity-btn">+</div>
+                        
+                        <div onClick={() => handleIncreaseItem(item.productId)}
+                        className="ec-cart-item-quantity-btn">+</div>
                       </div>
                     </div>
                   </div>
