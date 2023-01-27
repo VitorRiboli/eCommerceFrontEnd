@@ -35,3 +35,8 @@ export function addProduct(product : ProductDTO) {
   }
 
 }
+
+//Chama o método do cart-repository para limpar o carrinho
+export function clearCart() {
+  cartRepository.clear();
+}
