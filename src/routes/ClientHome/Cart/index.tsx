@@ -1,29 +1,40 @@
 import "./styles.css";
 
-import pcImg from "../../../assets/images/computer.png";
+import { useEffect } from "react";
 
-const cart = {
-  items: [
-    {
-      productId: 4,
-      quantity: 1,
-      name: "PC Gamer",
-      price: 1200,
-      imgUrl:
-        "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/4-big.jpg",
-    },
-    {
-      productId: 5,
-      quantity: 3,
-      name: "Rails for Dummies",
-      price: 100.99,
-      imgUrl:
-        "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/5-big.jpg",
-    },
-  ],
-};
+import { OrderDTO, OrderItemDTO } from "../../../models/order";
+
+import * as cartService from '../../../services/cart-service';
+
+
+const item1 : OrderItemDTO = new OrderItemDTO (
+  4, 
+  1, 
+  "PC Gamer", 
+  1200, 
+  "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/4-big.jpg"
+)
+
+const item2 : OrderItemDTO = new OrderItemDTO (
+  5, 3, "Rails for Dummies", 10.99, "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/5-big.jpg"
+)
+
+
+
 
 export default function Cart() {
+
+  const cart : OrderDTO = new OrderDTO ();
+  
+  useEffect(() => {
+    cart.items.push(item1); 
+    cart.items.push(item2);
+
+    cartService.saveCart(cart);
+  }, []);
+
+
+
   return (
     <main>
       <section id="cart-container-section" className="ec-container">
