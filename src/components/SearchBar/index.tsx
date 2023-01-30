@@ -20,16 +20,21 @@ export default function SearchBar({onSearch} : Props) {
     onSearch(text);
   }
 
+  function handleResetClick() {
+    setText("");
+    onSearch(text);
+  }
+
   return (
     <form className="ec-search-bar" onSubmit={handleSubmit}>
-      <button type="submit">🔎︎</button>
+      <button type="submit" style={{cursor:"pointer"}}>🔎︎</button>
       <input 
       value={text}
       onChange={handleChange}
       type="text" 
       placeholder="Nome do Produto" 
       />
-      <button type="reset">🗙</button>
+      <button style={{cursor:"pointer"}} onClick={handleResetClick}>🗙</button>
     </form>
 
   );
