@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -14,11 +14,15 @@ import * as cartService from "../../../services/cart-service";
 
 import { ProductDTO } from "../../../models/product";
 
+import { ContextCartCount } from "../../../utils/context-cart";
+
 export default function ProductDetails() {
   /*Aqui vai ler os parametros da rota*/
   const params = useParams();
 
   const navigate = useNavigate();
+
+  const { setContextCartCount } = useContext(ContextCartCount);
 
   //Declarando ESTADO e Armazenando dentro do componente um product
   //setProduc é a função dele que é capaz de alterar o product
@@ -46,6 +50,8 @@ export default function ProductDetails() {
     if(product) {
       cartService.addProduct(product);
 
+      setContextCartCount(cartService.getCart().items.length);
+      
       //Redirecionado para o cart
       navigate("/cart");
     }

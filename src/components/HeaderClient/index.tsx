@@ -1,7 +1,7 @@
 import "./styles.css";
 
-import cartIcon from "../../assets/images/cart.svg";
 import IconUser from "./iconUser";
+import CartIcon from "../CarIcon";
 
 import { Link } from "react-router-dom";
 
@@ -15,11 +15,12 @@ export default function HeaderClient() {
 
         <div className="ec-nav-bar-rigth">
           <div className="ec-menu-items-container">
-            <div className="ec-menu-item">
-              <Link to={"/cart"}>
-                <img src={cartIcon} alt="Carrinho"></img>
-              </Link>
-            </div>
+            <Link to={"/cart"} style={{textDecoration:"none"}}>
+              <div className="ec-menu-item">
+                <CartIcon />
+              </div>
+            </Link>
+
             <div className="ec-menu-item">
               <Link to={"/myaccount"}>
                 <IconUser />

@@ -1,20 +1,27 @@
 import "./styles.css";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { OrderDTO } from "../../../models/order";
 
 import * as cartService from "../../../services/cart-service";
+
 import { Link } from "react-router-dom";
 
+import { ContextCartCount } from "../../../utils/context-cart";
+
+
+
 export default function Cart() {
+
   const [cart, setCart] = useState<OrderDTO>(cartService.getCart);
+
+  const { setContextCartCount } = useContext(ContextCartCount);
 
   function handleClearClick() {
     cartService.clearCart();
-
     //Chamando setCart para redenrizar novamente o componente
-    setCart(cartService.getCart);
+    updateCart();
   }
 
   function handleIncreaseItem(productId : number) {
@@ -25,9 +32,15 @@ export default function Cart() {
 
   function handleDecreaseItem(productId : number) {
     cartService.decreaseItem(productId);
-
-    setCart(cartService.getCart);
+    updateCart();
   }
+
+  function updateCart() {
+    const newCart = cartService.getCart();
+    setCart(newCart);
+    setContextCartCount(newCart.items.length);
+  }
+
 
   return (
     <main>
@@ -80,7 +93,7 @@ export default function Cart() {
           <Link to={"/catalog"} style={{textDecoration:"none"}}>
             <div className="ec-btn ec-btn-white">Continuar Comprando</div>
           </Link>
-          <div onClick={handleClearClick} className="ec-btn ec-btn-white">Lampar Carrinho</div>
+          <div onClick={handleClearClick} className="ec-btn ec-btn-white">Limpar Carrinho</div>
         </div>
       </section>
     </main>
