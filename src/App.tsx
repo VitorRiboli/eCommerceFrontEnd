@@ -5,6 +5,7 @@ import ClientHome from "./routes/ClientHome";
 import ProductDetails from "./routes/ClientHome/ProductDetails";
 import Cart from "./routes/ClientHome/Cart";
 
+
 function App() {
   return (
     <BrowserRouter>
