@@ -30,7 +30,8 @@ export default function Login() {
   function handleInputChange(event: any) {
     const value = event.target.value;
     const name = event.target.name;
-    setFormData({ ...formData, [name]: [value] });
+
+    setFormData({ ...formData, [name]: value });
   }
 
   return (
