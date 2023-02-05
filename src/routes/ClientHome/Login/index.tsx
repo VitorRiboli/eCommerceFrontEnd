@@ -9,32 +9,28 @@ import { CredentialsDTO } from "../../../models/auth";
 
 import * as authService from "../../../services/auth-service";
 
-
-
 export default function Login() {
-
   const [formData, setFormData] = useState<CredentialsDTO>({
     username: "",
-    password: ""
+    password: "",
   });
 
-  function handleSubmit(event : any) {
+  function handleSubmit(event: any) {
     event.preventDefault();
 
     authService.loginRequest(formData)
-    .then(res => {
-      console.log(res.data)
-    })
-    .catch(err => {
-      console.log("Erro no login: ", err)
-    })
-    
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("Erro no login: ", err);
+      });
   }
 
-  function handleInputChange (event : any) {
+  function handleInputChange(event: any) {
     const value = event.target.value;
     const name = event.target.name;
-    setFormData({...formData, [name]: [value]});
+    setFormData({ ...formData, [name]: [value] });
   }
 
   return (
@@ -50,7 +46,6 @@ export default function Login() {
                   className="ec-form-control"
                   type="text"
                   placeholder="E-mail"
-
                   name="username"
                   value={formData.username}
                   onChange={handleInputChange}
@@ -70,7 +65,6 @@ export default function Login() {
                   className="ec-form-control"
                   type="password"
                   placeholder="Senha"
-
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
@@ -83,7 +77,6 @@ export default function Login() {
                   Div para mensagem de erro
                   */}
                 </div>
-                
               </div>
             </div>
 
