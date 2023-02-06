@@ -54,12 +54,6 @@ header {
   border-bottom: 3px solid var(--color-btn-primary);
 }
 
-
-.ec-header-admin {
-  background-color: var(--color-bg-quaternary);
-  color: var(--color-font-tertiary);
-}
-
 .ec-login a {
   color: unset;
   text-decoration: none;
@@ -109,6 +103,7 @@ nav a {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .ec-menu-item p {
@@ -131,6 +126,10 @@ nav a {
 .ec-login h2 {
   font-size: 12px;
   font-weight: 400;
+}
+
+.ec-login h2:hover {
+  text-decoration: underline;
 }
 
 .ec-login a {
