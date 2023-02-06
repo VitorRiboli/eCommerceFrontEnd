@@ -1,12 +1,33 @@
 import './styles.css'
 
+import { useEffect, useState } from 'react';
+
+import { userDTO } from '../../../models/user';
+
+import * as userService from "../../../services/user-service";
+
 export default function AdminHome() {
+
+  const [user, setUser] = useState<userDTO>();
+
+  useEffect(()=> {
+    userService.findMe()
+      .then(res => {
+        setUser(res.data);
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log("Error: ", err);
+      })
+  }, [])
+
+
   return (
     <main>
       <section id="admin-form-section" className="ec-container">
         <div className="ec-product-form-container">
           <h2 className="ec-section-title ec-mb20">
-            Bem vindo à Área Administrativa{" "}
+            Bem vindo à Área Administrativa {user?.name}
           </h2>
         </div>
       </section>
