@@ -9,6 +9,7 @@ import ButtonNextPage from "../../../components/ButtonNextPage";
 import { ProductDTO } from "../../../models/product";
 
 import * as productService from "../../../services/product-service";
+import { hasAnyRoles } from "../../../services/auth-service";
 
 type QueryParams = {
   page: number;
@@ -27,6 +28,8 @@ export default function Catalog() {
   });
 
   useEffect(() => {
+    console.log("teste", hasAnyRoles([]));
+
     productService
       .findPageRequest(queryParams.page, queryParams.name)
       .then((res) => {

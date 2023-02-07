@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from "axios";
 
 import QueryString from "qs";
 
-import { AccessTokenPayloadDTO, CredentialsDTO } from "../models/auth";
+import { AccessTokenPayloadDTO, CredentialsDTO, RoleEnum } from "../models/auth";
 
 import { requestBackend } from "../utils/requests";
 import { CLIENT_ID, CLIENT_SECRET } from "../utils/system";
@@ -62,4 +62,25 @@ export function isAuthenticated(): boolean {
   let tokenPayload = getAccessTokenPayload();
   //Date.now é o instante de agora em ms, o exp é o tempo de expiração em segundos, por isso multiplicado por 1000
   return tokenPayload && tokenPayload.exp * 1000 > Date.now() ? true : false;
+}
+
+//Funç
+export function hasAnyRoles(roles: RoleEnum[]): boolean {
+
+  if (roles.length === 0) {
+    return true;
+  }
+
+  const tokenPayload = getAccessTokenPayload();
+
+  if (tokenPayload !== undefined) {
+    for (var i = 0; i < roles.length; i++) {
+      if (tokenPayload.authorities.includes(roles[i])) {
+        return true;
+      }
+    }
+    //função abaixo tem o mesmo objetivo da função acima
+    //return roles.some(role => tokenData.authorities.includes(role));
+  }
+  return false;
 }
