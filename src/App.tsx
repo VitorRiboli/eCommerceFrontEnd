@@ -34,7 +34,7 @@ function App() {
 
           </Route> {/*Rotas do cliente */}
 
-          <Route path="/admin/" element={<PrivateRoute><Admin /></PrivateRoute>}>
+          <Route path="/admin/" element={<PrivateRoute roles={["ROLE_ADMIN"]}><Admin /></PrivateRoute>}>
             <Route index element={<AdminHome />}/>
 
           </Route> {/*Rotas do admin */}
