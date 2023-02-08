@@ -1,6 +1,8 @@
 import "./styles.css";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 import IconInputError from "../../../components/IconInputError";
 import IconLoginBtn from "../../../components/IconLoginBtn";
@@ -8,7 +10,9 @@ import IconLoginBtn from "../../../components/IconLoginBtn";
 import { CredentialsDTO } from "../../../models/auth";
 
 import * as authService from "../../../services/auth-service";
-import { useNavigate } from "react-router-dom";
+
+import { ContextToken } from "../../../utils/context-token";
+
 
 export default function Login() {
 
@@ -19,6 +23,7 @@ export default function Login() {
 
   const navigate = useNavigate();
 
+  const { setContextTokenPayload } = useContext(ContextToken);
 
   function handleSubmit(event: any) {
     event.preventDefault();
@@ -26,7 +31,8 @@ export default function Login() {
     authService.loginRequest(formData)
       .then((res) => {
         authService.saveAccessToken(res.data.access_token);
-        navigate("/cart")
+        setContextTokenPayload(authService.getAccessTokenPayload()); 
+        navigate("/cart");
       })
       .catch((err) => {
         console.log("Erro no login: ", err);
