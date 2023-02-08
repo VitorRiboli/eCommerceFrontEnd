@@ -13,6 +13,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.icon-admin {
+  margin-right: 15px;
+}
+
 @media (max-width: 576px ){
   .header-title {
     font-size: 30px;

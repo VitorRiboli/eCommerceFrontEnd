@@ -8,12 +8,17 @@ import IconLoginBtn from "../../../components/IconLoginBtn";
 import { CredentialsDTO } from "../../../models/auth";
 
 import * as authService from "../../../services/auth-service";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
   const [formData, setFormData] = useState<CredentialsDTO>({
     username: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+
 
   function handleSubmit(event: any) {
     event.preventDefault();
@@ -21,6 +26,7 @@ export default function Login() {
     authService.loginRequest(formData)
       .then((res) => {
         authService.saveAccessToken(res.data.access_token);
+        navigate("/cart")
       })
       .catch((err) => {
         console.log("Erro no login: ", err);

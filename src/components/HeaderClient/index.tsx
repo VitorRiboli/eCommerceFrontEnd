@@ -3,7 +3,11 @@ import "./styles.css";
 import IconUser from "./iconUser";
 import CartIcon from "../CarIcon";
 
+import iconAdmin from "../../assets/images/admin.svg";
+
 import { Link } from "react-router-dom";
+
+import * as authService from "../../services/auth-service";
 
 export default function HeaderClient() {
   return (
@@ -14,8 +18,18 @@ export default function HeaderClient() {
         </Link>
 
         <div className="ec-nav-bar-rigth">
+
           <div className="ec-menu-items-container">
-            <Link to={"/cart"} style={{textDecoration:"none"}}>
+            
+            {authService.hasAnyRoles(["ROLE_ADMIN"]) && (
+              <Link to="/admin">
+                <div className="dsc-menu-item icon-admin">
+                  <img src={iconAdmin} alt="Admin" />
+                </div>
+              </Link>
+            )}
+
+            <Link to={"/cart"} style={{ textDecoration: "none" }}>
               <div className="ec-menu-item">
                 <CartIcon />
               </div>
