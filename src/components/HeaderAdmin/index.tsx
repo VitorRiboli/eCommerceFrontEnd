@@ -4,7 +4,7 @@ import IconUser from "./iconUser";
 import ProductIcon from "../../assets/images/products.svg";
 import HomeIcon from "../../assets/images/home.svg";
 
-import { Link } from "react-router-dom";
+import LoggedUser from "../LoggedUser";
 
 export default function HeaderAdmin() {
   return (
@@ -24,25 +24,8 @@ export default function HeaderAdmin() {
             </div>
           </div>
 
-          <div className="ec-login">
-            <div className="ec-login-top">
-              <h2>Olá, Vitor </h2>
-            </div>
-            <div className="ec-login-bottom">
-              <h2>
-                {" "}
-                <Link to={"/"} style={{ textDecoration: "none" }}>
-                  MINHA CONTA
-                </Link>{" "}
-              </h2>
-              |{" "}
-              <h2>
-                <Link to={"/"} style={{ textDecoration: "none" }}>
-                  SAIR
-                </Link>
-              </h2>
-            </div>
-          </div>
+          <LoggedUser />
+
         </div>
       </nav>
     </header>

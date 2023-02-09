@@ -13,6 +13,8 @@ import * as authService from "../../services/auth-service";
 
 import { ContextToken } from "../../utils/context-token";
 
+import LoggedUser from "../LoggedUser";
+
 
 export default function HeaderClient() {
 
@@ -52,14 +54,8 @@ export default function HeaderClient() {
             </div>
           </div>
 
-          <div className="ec-login">
-            <h2>
-              Faça <Link to={"/login"}>LOGIN</Link>
-            </h2>
-            <h2>
-              ou crie seu <Link to={"/cadastro"}>CADASTRO</Link>
-            </h2>
-          </div>
+         <LoggedUser />
+
         </div>
       </nav>
     </header>
