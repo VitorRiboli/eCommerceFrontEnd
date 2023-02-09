@@ -22,6 +22,7 @@ import { ContextToken } from "./utils/context-token";
 
 import * as authService from "./services/auth-service";
 import * as cartService from "./services/cart-service";
+import Confitmation from "./routes/ClientHome/Confirmation";
 
 
 function App() {
@@ -60,6 +61,10 @@ function App() {
               />
               <Route path="cart" element={<Cart />} />
               <Route path="login" element={<Login />} />
+              <Route
+                path="confirmation/:orderId"
+                element={<Confitmation />}
+              />
             </Route>{" "}
             {/*Rotas do cliente */}
             <Route

@@ -93,7 +93,10 @@ export default function Cart() {
           <Link to={"/catalog"} style={{textDecoration:"none"}}>
             <div className="ec-btn ec-btn-white">Continuar Comprando</div>
           </Link>
-          <div onClick={handleClearClick} className="ec-btn ec-btn-white">Limpar Carrinho</div>
+          { cart.items.length > 0 
+            ? <div onClick={handleClearClick} className="ec-btn ec-btn-white">Limpar Carrinho</div>
+            : ""
+          }   
         </div>
       </section>
     </main>

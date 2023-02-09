@@ -1,0 +1,17 @@
+#confirmation-section {
+  padding: 20px 0;
+}
+
+.ec-confirmation-message {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-font-primary);
+  text-align: center;
+}
+
+@media (min-width: 576px) {
+  .ec-confirmation-message {
+    font-size: 24px;
+    text-align: left;
+  }
+}

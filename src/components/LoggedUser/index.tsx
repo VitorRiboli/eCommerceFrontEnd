@@ -10,9 +10,9 @@ export default function LoggedUser() {
   const { contextTokenPayload, setContextTokenPayload } = useContext(ContextToken)
 
 
-  function handleLogoutClock() {
-    return authService.logout();
-    setContextTokenPayload(undefined);
+  function handleLogoutClick() {
+    authService.logout();
+    setContextTokenPayload(undefined!);
   }
 
   return (
@@ -30,7 +30,7 @@ export default function LoggedUser() {
         </h2>
         |{" "}
         <h2>
-          <span onClick={handleLogoutClock}>
+          <span onClick={handleLogoutClick}>
             SAIR
           </span>
         </h2>
