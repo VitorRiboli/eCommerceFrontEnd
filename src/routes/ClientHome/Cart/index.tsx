@@ -2,17 +2,20 @@ import "./styles.css";
 
 import { useContext, useState } from "react";
 
+import { Link, useNavigate } from "react-router-dom";
+
 import { OrderDTO } from "../../../models/order";
 
 import * as cartService from "../../../services/cart-service";
-
-import { Link } from "react-router-dom";
+import * as orderService from "../../../services/order-service";
 
 import { ContextCartCount } from "../../../utils/context-cart";
 
 
 
 export default function Cart() {
+
+  const navigate = useNavigate();
 
   const [cart, setCart] = useState<OrderDTO>(cartService.getCart);
 
@@ -24,13 +27,13 @@ export default function Cart() {
     updateCart();
   }
 
-  function handleIncreaseItem(productId : number) {
+  function handleIncreaseItem(productId: number) {
     cartService.increaseItem(productId);
 
     setCart(cartService.getCart); //Chamando o setCart para atualizar a pagina
   }
 
-  function handleDecreaseItem(productId : number) {
+  function handleDecreaseItem(productId: number) {
     cartService.decreaseItem(productId);
     updateCart();
   }
@@ -39,6 +42,16 @@ export default function Cart() {
     const newCart = cartService.getCart();
     setCart(newCart);
     setContextCartCount(newCart.items.length);
+  }
+
+
+  function handlePlaceOrderClick() {
+    orderService.placeOrderRequest(cart) //pedido salvo no banco de dados já
+      .then(res => {
+        cartService.clearCart(); //limpando o carrinho
+        setContextCartCount(0); //zerando o contador de items do carrinho do header
+        navigate(`/confirmation/${res.data.id}`)
+      })
   }
 
 
@@ -66,13 +79,21 @@ export default function Cart() {
                     <div className="ec-cart-item-description">
                       <h3>{item.name}</h3>
                       <div className="ec-cart-item-quantity-container">
-                        <div onClick={() => handleDecreaseItem(item.productId)}
-                        className="ec-cart-item-quantity-btn">-</div>
-                    
+                        <div
+                          onClick={() => handleDecreaseItem(item.productId)}
+                          className="ec-cart-item-quantity-btn"
+                        >
+                          -
+                        </div>
+
                         <p>{item.quantity}</p>
-                        
-                        <div onClick={() => handleIncreaseItem(item.productId)}
-                        className="ec-cart-item-quantity-btn">+</div>
+
+                        <div
+                          onClick={() => handleIncreaseItem(item.productId)}
+                          className="ec-cart-item-quantity-btn"
+                        >
+                          +
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -89,14 +110,19 @@ export default function Cart() {
         )}
 
         <div className="ec-btn-container">
-          <div className="ec-btn ec-btn-orange">Finalizar Pedido</div>
-          <Link to={"/catalog"} style={{textDecoration:"none"}}>
+          <div onClick={handlePlaceOrderClick} className="ec-btn ec-btn-orange">
+            Finalizar Pedido
+          </div>
+          <Link to={"/catalog"} style={{ textDecoration: "none" }}>
             <div className="ec-btn ec-btn-white">Continuar Comprando</div>
           </Link>
-          { cart.items.length > 0 
-            ? <div onClick={handleClearClick} className="ec-btn ec-btn-white">Limpar Carrinho</div>
-            : ""
-          }   
+          {cart.items.length > 0 ? (
+            <div onClick={handleClearClick} className="ec-btn ec-btn-white">
+              Limpar Carrinho
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </section>
     </main>

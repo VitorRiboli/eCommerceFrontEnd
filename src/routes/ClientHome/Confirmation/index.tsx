@@ -50,7 +50,7 @@ export default function Confitmation() {
         </div>
 
         <div className="ec-btn-container">
-          <Link to={"/"}>
+          <Link to={"/"} style={{textDecoration: "none"}}>
             <div className="ec-btn ec-btn-white">Inicio</div>
           </Link>
         </div>
