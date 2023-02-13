@@ -19,12 +19,12 @@ export default function LoggedUser() {
   contextTokenPayload && authService.isAuthenticated() ? (
     <div className="ec-login">
       <div className="ec-login-top">
-        <h2>Olá, {contextTokenPayload?.user_name} </h2>
+        <h3>Olá, {contextTokenPayload?.user_name} </h3>
       </div>
 
       <div className="ec-login-bottom">
         <h2>
-          <Link to={"/"} style={{ textDecoration: "none" }}>
+          <Link to={"users/me"} style={{ textDecoration: "none" }}>
             MINHA CONTA
           </Link>{" "}
         </h2>
