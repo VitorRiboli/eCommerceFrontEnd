@@ -1,0 +1,23 @@
+#product-form-section {
+  padding: 20px 0;
+}
+
+.ec-product-form-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.ec-product-form-btns {
+  display: grid;
+  grid-gap: 20px;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+}
+
+@media (min-width: 576px) {
+  #product-form-section{
+    padding: 40px 0;
+  }
+
+}
