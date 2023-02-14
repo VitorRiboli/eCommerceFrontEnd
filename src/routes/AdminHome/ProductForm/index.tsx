@@ -30,7 +30,6 @@ export default function ProductForm() {
                 <option value="" disabled selected>Categorias</option>
                 <option value="1">Eletrônicos</option>
                 <option value="2">Casa</option>
-                <option value="3">3</option>
               </select>
               
             </div>

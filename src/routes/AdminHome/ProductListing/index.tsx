@@ -1,9 +1,44 @@
 import "./styles.css";
 
+import { useEffect, useState } from "react";
+
 import IconEdit from "../../../assets/images/edit.svg";
 import IconDelete from "../../../assets/images/delete.svg";
 
+import * as productService from "../../../services/product-service";
+
+import { ProductDTO } from "../../../models/product";
+import AdminListingCard from "../../../components/AdminListingCard";
+
+
+type QueryParams = {
+  page: number;
+  name: string;
+};
+
 export default function ProductListing() {
+
+  const [isLastPage, setIsLastPage] = useState(false);
+
+  const [products, setProducts] = useState<ProductDTO[]>([]);
+
+  const [queryParams, setQueryParams] = useState<QueryParams>({
+    page: 0,
+    name: "",
+  });
+
+  useEffect(() => {
+    productService
+      .findPageRequest(queryParams.page, queryParams.name)
+      .then((res) => {
+        const nextPage = res.data.content;
+        setProducts(products.concat(nextPage));
+        setIsLastPage(res.data.last);
+      });
+  }, [queryParams]);
+
+
+
   return (
     <main>
     <section id="product-listing-section" className="ec-container">
@@ -32,25 +67,14 @@ export default function ProductListing() {
           <th></th>
         </thead>
         <tbody>
-          <tr>
-            <td className="ec-tb576">341</td>
-            <td><img className="ec-product-listing-img" src="img/computer.png" alt="Computer" /></td>
-            <td className="ec-tb768">R$ 5000,00</td>
-            <td className="ec-txt-left">Computador Gamer XT Plus Ultra</td>
-            <td><img className="ec-product-listing-btn" src={IconEdit} alt="Editar" /></td>
-            <td><img className="ec-product-listing-btn" src={IconDelete}  alt="Deletar" /></td>
-          </tr>
+          {
+            products.map(product => <AdminListingCard 
+              key={product.id} id={product.id} 
+              price={product.price} name={product.name} 
+              imgUrl={product.imgUrl}
+              />)
+          }
 
-          <tr>
-            <td className="ec-tb576">341</td>
-            <td><img className="ec-product-listing-img" src="img/computer.png" alt="Computer" /></td>
-            <td className="ec-tb768">R$ 5000,00</td>
-            <td className="ec-txt-left">Computador Gamer XT Plus Ultra</td>
-            <td><img className="ec-product-listing-btn" src={IconEdit}  alt="Editar" /></td>
-            <td><img className="ec-product-listing-btn" src={IconDelete}  alt="Deletar" /></td>
-          </tr>
-
-          
         </tbody>
 
       </table>

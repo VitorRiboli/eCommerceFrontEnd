@@ -21,7 +21,7 @@ export default function AdminHome() {
   return (
     <main>
       <section id="admin-form-section" className="ec-container">
-        <div className="ec-product-form-container">
+        <div className="ec-product-form-container-teste">
           <h2 className="ec-section-title ec-mb20">
             Bem vindo à Área Administrativa {user?.name}
           </h2>
