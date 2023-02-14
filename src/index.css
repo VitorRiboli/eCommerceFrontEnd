@@ -459,3 +459,45 @@ nav a {
     font-size: 16px;
   }
 }
+
+/*--------------------- Dialog Styles -------------------- */
+
+
+.ec-dialog-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ec-dialog-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-bg-primary);
+
+  border-radius: 8px;
+  border: none;
+  padding: 20px 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ec-dialog-box h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-bg-tertiary);
+  margin-bottom: 15px;
+}
+
+.ec-dialog-btn-container {
+  width: 100%;
+}
+
+

@@ -11,6 +11,7 @@ import { ProductDTO } from "../../../models/product";
 import AdminListingCard from "../../../components/AdminListingCard";
 import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
+import DialogInfo from "../../../components/DialogInfo";
 
 type QueryParams = {
   page: number;
@@ -18,6 +19,12 @@ type QueryParams = {
 };
 
 export default function ProductListing() {
+
+  const [dialogInfoData, setDialogInfoData] = useState({
+    visible: false,
+    message: "Operação conluída com sucesso!"
+  })
+
   const [isLastPage, setIsLastPage] = useState(false);
 
   const [products, setProducts] = useState<ProductDTO[]>([]);
@@ -44,6 +51,14 @@ export default function ProductListing() {
 
   function handleNextPageClick() {
     setQueryParams({ ...queryParams, page: queryParams.page + 1 });
+  }
+
+  function handleDialogInfoClose() {
+    setDialogInfoData({...dialogInfoData, visible: false})
+  }
+
+  function handleDeleteClick() {
+    setDialogInfoData({...dialogInfoData, visible: true})
   }
 
   return (
@@ -76,6 +91,7 @@ export default function ProductListing() {
                 price={product.price}
                 name={product.name}
                 imgUrl={product.imgUrl}
+                onDialogView={handleDeleteClick}
               />
             ))}
           </tbody>
@@ -86,6 +102,12 @@ export default function ProductListing() {
           <ButtonNextPage onNextPage={handleNextPageClick} />
         }
       </section>
+
+      {
+        dialogInfoData.visible &&
+        <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose} />
+      }
+      
     </main>
   );
 }
