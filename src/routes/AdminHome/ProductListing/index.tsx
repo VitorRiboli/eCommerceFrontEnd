@@ -9,7 +9,8 @@ import * as productService from "../../../services/product-service";
 
 import { ProductDTO } from "../../../models/product";
 import AdminListingCard from "../../../components/AdminListingCard";
-
+import SearchBar from "../../../components/SearchBar";
+import ButtonNextPage from "../../../components/ButtonNextPage";
 
 type QueryParams = {
   page: number;
@@ -17,7 +18,6 @@ type QueryParams = {
 };
 
 export default function ProductListing() {
-
   const [isLastPage, setIsLastPage] = useState(false);
 
   const [products, setProducts] = useState<ProductDTO[]>([]);
@@ -37,54 +37,55 @@ export default function ProductListing() {
       });
   }, [queryParams]);
 
+  function handleSearch(searchText: string) {
+    setProducts([]);
+    setQueryParams({ ...queryParams, page: 0, name: searchText });
+  }
 
+  function handleNextPageClick() {
+    setQueryParams({ ...queryParams, page: queryParams.page + 1 });
+  }
 
   return (
     <main>
-    <section id="product-listing-section" className="ec-container">
+      <section id="product-listing-section" className="ec-container">
+        <h2 className="ec-section-title ec-mb20">Cadastro de Produtos</h2>
 
-      <h2 className="ec-section-title ec-mb20">Cadastro de Produtos</h2>
+        <div className="ec-btn-container ec-mb20">
+          <a className="ec-btn ec-btn-white" href="">
+            Novo
+          </a>
+        </div>
 
-      <div className="ec-btn-container ec-mb20">
-        <a className="ec-btn ec-btn-white" href="">
-          Novo
-        </a>
-      </div>
+        <SearchBar onSearch={handleSearch} />
 
-      <form className="ec-search-bar">
-        <button type="submit">🔎︎</button>
-        <input type="text" placeholder="Nome do Produto" />
-        <button type="reset">🗙</button>
-      </form>
+        <table className="ec-table ec-mb20 ec-mt20">
+          <thead>
+            <th className="ec-tb576">id</th>
+            <th></th>
+            <th className="ec-tb768">Preço</th>
+            <th className="ec-txt-left">Nome</th>
+            <th></th>
+            <th></th>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <AdminListingCard
+                key={product.id}
+                id={product.id}
+                price={product.price}
+                name={product.name}
+                imgUrl={product.imgUrl}
+              />
+            ))}
+          </tbody>
+        </table>
 
-      <table className="ec-table ec-mb20 ec-mt20">
-        <thead>
-          <th className="ec-tb576">id</th>
-          <th></th>
-          <th className="ec-tb768">Preço</th>
-          <th className="ec-txt-left">Nome</th>
-          <th></th>
-          <th></th>
-        </thead>
-        <tbody>
-          {
-            products.map(product => <AdminListingCard 
-              key={product.id} id={product.id} 
-              price={product.price} name={product.name} 
-              imgUrl={product.imgUrl}
-              />)
-          }
-
-        </tbody>
-
-      </table>
-    
-
-      <div className="ec-btn-next-page">
-        carregar mais
-      </div>
-      
-    </section>
-  </main>
-  )
+        {
+          !isLastPage && 
+          <ButtonNextPage onNextPage={handleNextPageClick} />
+        }
+      </section>
+    </main>
+  );
 }
