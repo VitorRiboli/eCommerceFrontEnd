@@ -28,7 +28,7 @@ export default function AdminListingCard({...product} : Props) {
       </td>
       <td>
         <img
-          onClick={() => product.onDialogView()}
+          onClick={() => product.onDialogView(product.id)}
           className="ec-product-listing-btn"
           src={IconDelete}
           alt="Deletar"

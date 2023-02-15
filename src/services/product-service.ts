@@ -29,3 +29,13 @@ export function findById(id: number) {
     //return axios.get(`${BASE_URL}/products/${id}`)
 }
 
+export function deleteById(id : number) {
+    const config : AxiosRequestConfig = {
+        method: "DELETE",
+        url: `/products/${id}`,
+        withCredentials: true
+    }
+
+    return requestBackend(config);
+}
+
