@@ -6,13 +6,15 @@ import { useNavigate } from "react-router-dom";
 
 import IconInputError from "../../../components/IconInputError";
 import IconLoginBtn from "../../../components/IconLoginBtn";
+import FormInput from "../../../components/FormInput";
 
 import { CredentialsDTO } from "../../../models/auth";
 
 import * as authService from "../../../services/auth-service";
 
 import { ContextToken } from "../../../utils/context-token";
-import FormInput from "../../../components/FormInput";
+import * as forms from "../../../utils/forms";
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -64,7 +66,7 @@ export default function Login() {
     const value = event.target.value;
     const name = event.target.name;
 
-    setFormData({ ...formData, [name]: { ...formData[name], value: value } });
+    setFormData(forms.update(formData, name, value));
   }
 
   return (
