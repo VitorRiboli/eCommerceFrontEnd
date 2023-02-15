@@ -28,8 +28,9 @@ export default function ProductForm() {
             <div>
               <select className="ec-form-control ec-select" required>
                 <option value="" disabled selected>Categorias</option>
-                <option value="1">Eletrônicos</option>
-                <option value="2">Casa</option>
+                <option value="1">Livros</option>
+                <option value="2">Eletrônicos</option>
+                <option value="3">Computadores</option>
               </select>
               
             </div>
@@ -49,10 +50,6 @@ export default function ProductForm() {
             </button>
           </div>
         </form>
-
-
-
-
 
       </div>
     </section>

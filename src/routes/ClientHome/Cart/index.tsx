@@ -110,12 +110,25 @@ export default function Cart() {
         )}
 
         <div className="ec-btn-container">
-          <div onClick={handlePlaceOrderClick} className="ec-btn ec-btn-orange">
+          
+          {cart.items.length > 0 ? (
+            <div onClick={handlePlaceOrderClick} className="ec-btn ec-btn-orange">
             Finalizar Pedido
           </div>
-          <Link to={"/catalog"} style={{ textDecoration: "none" }}>
-            <div className="ec-btn ec-btn-white">Continuar Comprando</div>
-          </Link>
+          ) : (
+            ""
+          )}
+          
+          {cart.items.length > 0 ? (
+            <Link to={"/catalog"} style={{ textDecoration: "none" }}>
+              <div className="ec-btn ec-btn-white">Continuar Comprando</div>
+            </Link>
+          ) : (
+            <Link to={"/catalog"} style={{ textDecoration: "none" }}>
+             <div className="ec-btn ec-btn-white">Votar ao catálogo</div>
+            </Link>
+          )}
+
           {cart.items.length > 0 ? (
             <div onClick={handleClearClick} className="ec-btn ec-btn-white">
               Limpar Carrinho
@@ -123,6 +136,7 @@ export default function Cart() {
           ) : (
             ""
           )}
+
         </div>
       </section>
     </main>

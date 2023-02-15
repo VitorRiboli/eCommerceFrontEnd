@@ -12,26 +12,47 @@ import { CredentialsDTO } from "../../../models/auth";
 import * as authService from "../../../services/auth-service";
 
 import { ContextToken } from "../../../utils/context-token";
-
+import FormInput from "../../../components/FormInput";
 
 export default function Login() {
-
-  const [formData, setFormData] = useState<CredentialsDTO>({
-    username: "",
-    password: "",
-  });
-
   const navigate = useNavigate();
 
   const { setContextTokenPayload } = useContext(ContextToken);
 
+  const [formData, setFormData] = useState<any>({
+    username: {
+      value: "",
+      id: "username",
+      name: "username",
+      type: "text",
+      placeholder: "Email",
+      validation: function (value: string) {
+        return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          value.toLowerCase()
+        );
+      },
+      message: "Favor informar um email válido",
+    },
+    password: {
+      value: "",
+      id: "password",
+      name: "password",
+      type: "password",
+      placeholder: "Senha",
+    },
+  });
+
   function handleSubmit(event: any) {
     event.preventDefault();
 
-    authService.loginRequest(formData)
+    authService
+      .loginRequest({
+        username: formData.username.value,
+        password: formData.password.value,
+      })
       .then((res) => {
         authService.saveAccessToken(res.data.access_token);
-        setContextTokenPayload(authService.getAccessTokenPayload()); //espera argumento undefined
+        setContextTokenPayload(authService.getAccessTokenPayload()!); //espera argumento undefined, ! para tirar o erro, está atuaizando normal
         navigate("/cart");
       })
       .catch((err) => {
@@ -43,7 +64,7 @@ export default function Login() {
     const value = event.target.value;
     const name = event.target.name;
 
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: { ...formData[name], value: value } });
   }
 
   return (
@@ -55,13 +76,16 @@ export default function Login() {
 
             <div className="ec-form-controls-container">
               <div>
-                <input
+                <FormInput
                   className="ec-form-control"
+                  onChange={handleInputChange}
+                  {...formData.username}
+                  /* Esses 4 atributos podem ser resumido na linha acima
                   type="text"
                   placeholder="E-mail"
                   name="username"
-                  value={formData.username}
-                  onChange={handleInputChange}
+                  value={formData.username.value}
+                  */
                 />
 
                 <div className="ec-form-error">
@@ -74,13 +98,16 @@ export default function Login() {
               </div>
 
               <div>
-                <input
+                <FormInput
                   className="ec-form-control"
+                  onChange={handleInputChange}
+                  {...formData.password}
+                  /*
                   type="password"
                   placeholder="Senha"
                   name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
+                  value={formData.password.value}
+                  */
                 />
 
                 <div className="ec-form-error">
