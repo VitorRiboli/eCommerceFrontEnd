@@ -48,10 +48,7 @@ export default function Login() {
     event.preventDefault();
 
     authService
-      .loginRequest({
-        username: formData.username.value,
-        password: formData.password.value,
-      })
+      .loginRequest(forms.toValues(formData))
       .then((res) => {
         authService.saveAccessToken(res.data.access_token);
         setContextTokenPayload(authService.getAccessTokenPayload()!); //espera argumento undefined, ! para tirar o erro, está atuaizando normal

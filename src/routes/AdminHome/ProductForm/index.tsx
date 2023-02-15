@@ -1,59 +1,103 @@
 import "./styles.css";
 
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import ButtonSecondary from "../../../components/ButtonSecondary";
+import FormInput from "../../../components/FormInput";
+
+import * as forms from "../../../utils/forms";
+import * as productService from "../../../services/product-service";
+
+
 export default function ProductForm() {
+
+  const params = useParams();
+
+  const isEditing = params.productId !== "create";
+
+  const [formData, setFormData] = useState<any>({
+    name: {
+      value: "",
+      id: "name",
+      name: "name",
+      type: "text",
+      placeholder: "Nome",
+    },
+    price: {
+      value: "",
+      id: "price",
+      name: "price",
+      type: "number",
+      placeholder: "Preço",
+    },
+    imgUrl: {
+      value: "",
+      id: "imgUrl",
+      name: "imgUrl",
+      type: "text",
+      placeholder: "Link da Imagem",
+    },
+  });
+
+  function handleInputChange(event: any) {
+    setFormData(forms.update(formData, event.target.name, event.target.value));
+  }
+
+  useEffect(() => {
+    if (isEditing) {
+      productService.findById(Number(params.productId))
+        .then(res => {
+          const newFormData = forms.updateAll(formData, res.data)
+          setFormData(newFormData);
+        }) 
+    }
+  }, []);
+
+
   return (
     <main>
-    <section id="product-form-section" className="ec-container">
-      <div className="ec-product-form-container">
-        <form className="ec-card ec-form">
-          <h2>Dados do Produto</h2>
+      <section id="product-form-section" className="ec-container">
+        <div className="ec-product-form-container">
+          <form className="ec-card ec-form">
+            <h2>Dados do Produto</h2>
 
-          <div className="ec-form-controls-container">
+            <div className="ec-form-controls-container">
+              <div>
+                <FormInput
+                  className="ec-form-control"
+                  onChange={handleInputChange}
+                  {...formData.name}
+                />
+              </div>
 
-            <div>
-              <input className="ec-form-control" type="text" placeholder="Nome" />
-             
+              <div>
+                <FormInput
+                  className="ec-form-control"
+                  onChange={handleInputChange}
+                  {...formData.price}
+                />
+              </div>
+
+              <div>
+                <FormInput
+                  className="ec-form-control"
+                  onChange={handleInputChange}
+                  {...formData.imgUrl}
+                />
+              </div>
             </div>
 
-            <div>
-              <input className="ec-form-control" type="text" placeholder="Preço" />
-              
+            <div className="ec-product-form-btns">
+              <Link to="/admin/products" style={{ textDecoration: "none" }}>
+                <ButtonSecondary text="Cancelar" />
+              </Link>
+              <ButtonPrimary text="Salvar" />
             </div>
-
-            <div>
-              <input className="ec-form-control" type="text" placeholder="Imagem" />
-              
-            </div>
-
-            <div>
-              <select className="ec-form-control ec-select" required>
-                <option value="" disabled selected>Categorias</option>
-                <option value="1">Livros</option>
-                <option value="2">Eletrônicos</option>
-                <option value="3">Computadores</option>
-              </select>
-              
-            </div>
-         
-            <div>
-              <textarea className="ec-textarea ec-form-control" placeholder="Descrição"></textarea>
-            </div>
-
-          </div>
-
-          <div className="ec-product-form-btns">
-            <button type="reset" className="ec-btn ec-btn-white">
-              Cancelar
-            </button>
-            <button type="submit" className="ec-btn ec-btn-login">
-              Salvar
-            </button>
-          </div>
-        </form>
-
-      </div>
-    </section>
-
-  </main>
-  )
+          </form>
+        </div>
+      </section>
+    </main>
+  );
 }

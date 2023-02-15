@@ -13,6 +13,8 @@ import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
 import DialogInfo from "../../../components/DialogInfo";
 import DialogConfirmation from "../../../components/DialogConfirmation";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import ButtonSecondary from "../../../components/ButtonSecondary";
 
 type QueryParams = {
   page: number;
@@ -21,17 +23,19 @@ type QueryParams = {
 
 export default function ProductListing() {
 
+  const navigate = useNavigate();
+
   const [dialogInfoData, setDialogInfoData] = useState({
     visible: false,
-    message: "Operação conluída com sucesso!"
-  })
+    message: "Operação conluída com sucesso!",
+  });
 
   const [dialogConfirmationData, setDialogConfirmationData] = useState({
     visible: false,
     id: 0,
-    message: "Tem Certeza?"
-  })
-  
+    message: "Tem Certeza?",
+  });
+
   const [isLastPage, setIsLastPage] = useState(false);
 
   const [products, setProducts] = useState<ProductDTO[]>([]);
@@ -61,30 +65,39 @@ export default function ProductListing() {
   }
 
   function handleDialogInfoClose() {
-    setDialogInfoData({...dialogInfoData, visible: false})
+    setDialogInfoData({ ...dialogInfoData, visible: false });
   }
 
-  function handleDeleteClick(productId : number) {
-    setDialogConfirmationData({...dialogConfirmationData, id: productId, visible: true})
+  function handleDeleteClick(productId: number) {
+    setDialogConfirmationData({
+      ...dialogConfirmationData,
+      id: productId,
+      visible: true,
+    });
   }
 
-  function handleDialogConfirmationAnswer(answer : boolean, productId : number) {
+  function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
     if (answer) {
-      productService.deleteById(productId)
+      productService
+        .deleteById(productId)
         .then(() => {
           //Atualizar a lista e refazer a busca na pagina 0
           setProducts([]);
-          setQueryParams({ ...queryParams, page: 0});
+          setQueryParams({ ...queryParams, page: 0 });
         })
-        .catch(err => {
+        .catch((err) => {
           setDialogInfoData({
             visible: true,
-            message: err.response.data.error
-          })
-        })
+            message: err.response.data.error,
+          });
+        });
     }
 
-    setDialogConfirmationData({...dialogConfirmationData, visible: false})
+    setDialogConfirmationData({ ...dialogConfirmationData, visible: false });
+  }
+
+  function handeNewProductClick() {
+    navigate("/admin/products/create");
   }
 
   return (
@@ -92,10 +105,11 @@ export default function ProductListing() {
       <section id="product-listing-section" className="ec-container">
         <h2 className="ec-section-title ec-mb20">Cadastro de Produtos</h2>
 
-        <div className="ec-btn-container ec-mb20">
-          <a className="ec-btn ec-btn-white" href="">
-            Novo
-          </a>
+        <div
+          onClick={handeNewProductClick}
+          className="ec-btn-container ec-mb20"
+        >
+          <ButtonSecondary text="Novo" />
         </div>
 
         <SearchBar onSearch={handleSearch} />
@@ -123,26 +137,23 @@ export default function ProductListing() {
           </tbody>
         </table>
 
-        {
-          !isLastPage && 
-          <ButtonNextPage onNextPage={handleNextPageClick} />
-        }
+        {!isLastPage && <ButtonNextPage onNextPage={handleNextPageClick} />}
       </section>
 
-      {
-        dialogInfoData.visible &&
-        <DialogInfo 
-        message={dialogInfoData.message} 
-        onDialogClose={handleDialogInfoClose} />
-      }
-      
-      {
-        dialogConfirmationData.visible &&
+      {dialogInfoData.visible && (
+        <DialogInfo
+          message={dialogInfoData.message}
+          onDialogClose={handleDialogInfoClose}
+        />
+      )}
+
+      {dialogConfirmationData.visible && (
         <DialogConfirmation
-        id={dialogConfirmationData.id}
-        message={dialogConfirmationData.message} 
-        onDialogAnswer={handleDialogConfirmationAnswer} />
-      }
+          id={dialogConfirmationData.id}
+          message={dialogConfirmationData.message}
+          onDialogAnswer={handleDialogConfirmationAnswer}
+        />
+      )}
     </main>
   );
 }
