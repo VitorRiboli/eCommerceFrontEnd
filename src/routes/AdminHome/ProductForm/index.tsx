@@ -10,9 +10,7 @@ import FormInput from "../../../components/FormInput";
 import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
 
-
 export default function ProductForm() {
-
   const params = useParams();
 
   const isEditing = params.productId !== "create";
@@ -31,7 +29,7 @@ export default function ProductForm() {
       name: "price",
       type: "number",
       placeholder: "Preço",
-      validation: function(value : any) {
+      validation: function (value: any) {
         return Number(value) > 0;
       },
       message: "Favor informar um valor positivo.",
@@ -46,22 +44,22 @@ export default function ProductForm() {
   });
 
   function handleInputChange(event: any) {
-    setFormData(forms.update(formData, event.target.name, event.target.value));
+    //Atualizando os dados digitados no input
+    const dataUpdate = forms.update(formData, event.target.name, event.target.value);
+    //Aplicando a função de validação 
+    const dataValidate = forms.vaidate(dataUpdate, event.target.name);
+    //Atualizando o setFormData
+    setFormData(dataValidate);
   }
 
   useEffect(() => {
-    const obj = forms.vaidate(formData, "imgUrl");
-    console.log(obj)
-
     if (isEditing) {
-      productService.findById(Number(params.productId))
-        .then(res => {
-          const newFormData = forms.updateAll(formData, res.data)
-          setFormData(newFormData);
-        }) 
+      productService.findById(Number(params.productId)).then((res) => {
+        const newFormData = forms.updateAll(formData, res.data);
+        setFormData(newFormData);
+      });
     }
   }, []);
-
 
   return (
     <main>
@@ -73,25 +71,27 @@ export default function ProductForm() {
             <div className="ec-form-controls-container">
               <div>
                 <FormInput
-                  className="ec-form-control"
-                  onChange={handleInputChange}
                   {...formData.name}
+                  className="ec-form-control"
+                  onChange={handleInputChange}
                 />
+                <div>{formData.name.message}</div>
               </div>
 
               <div>
                 <FormInput
-                  className="ec-form-control"
-                  onChange={handleInputChange}
                   {...formData.price}
+                  className="ec-form-control"
+                  onChange={handleInputChange}
                 />
+                <div className="ec-form-error">{formData.price.message}</div>
               </div>
 
               <div>
                 <FormInput
+                  {...formData.imgUrl}
                   className="ec-form-control"
                   onChange={handleInputChange}
-                  {...formData.imgUrl}
                 />
               </div>
             </div>
