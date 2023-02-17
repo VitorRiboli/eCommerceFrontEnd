@@ -22,3 +22,13 @@ export function updateAll(inputs: any, newValues: any){
   return newInputs;
 }
 
+export function vaidate(inputs: any, name: string) {
+  //Testando se tem o vampo validation no atributo [name]
+  if (!inputs[name].validation) {
+    return inputs; //Caso não exista a função validate, retorne apenas o inputs
+  }
+
+  const isInValid = !inputs[name].validation(inputs[name].value)
+
+  return { ...inputs, [name]: {...inputs[name], invalid: isInValid.toString() }}
+}
