@@ -60,11 +60,12 @@ export default function Login() {
   }
 
   function handleInputChange(event: any) {
-    const value = event.target.value;
-    const name = event.target.name;
-
-    setFormData(forms.update(formData, name, value));
+    setFormData(forms.update(formData, event.target.name, event.target.value));
   }
+
+  function handleTurnDirty(name: string) {
+    setFormData(forms.dirtyAndValidate(formData, name));
+  } 
 
   return (
     <main>
@@ -77,6 +78,7 @@ export default function Login() {
               <div>
                 <FormInput
                   className="ec-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                   {...formData.username}
                   /* Esses 4 atributos podem ser resumido na linha acima
@@ -98,6 +100,7 @@ export default function Login() {
 
               <div>
                 <FormInput
+                  onTurnDirty={handleTurnDirty}
                   className="ec-form-control"
                   onChange={handleInputChange}
                   {...formData.password}

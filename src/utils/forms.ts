@@ -22,7 +22,7 @@ export function updateAll(inputs: any, newValues: any){
   return newInputs;
 }
 
-export function vaidate(inputs: any, name: string) {
+export function validate(inputs: any, name: string) {
   //Testando se tem o vampo validation no atributo [name]
   if (!inputs[name].validation) {
     return inputs; //Caso não exista a função validate, retorne apenas o inputs
@@ -33,7 +33,17 @@ export function vaidate(inputs: any, name: string) {
   return { ...inputs, [name]: {...inputs[name], invalid: isInValid.toString() }}
 }
 
+//Função auxiliar para as duas acima
+export function updateAndValidate(inputs: any, name: string, newValue: any) {
+  const dataUpdate = update(inputs, name, newValue);
+  return validate(dataUpdate, name);
+} 
+
 export function toDirty(inputs: any, name: string) {
   return { ...inputs, [name]: { ...inputs[name], dirty: "true" }}
 }
 
+export function dirtyAndValidate(inputs: any, name: string) {
+  const dataDirty = toDirty(inputs, name);
+  return validate(dataDirty, name);
+} 

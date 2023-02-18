@@ -44,24 +44,16 @@ export default function ProductForm() {
   });
 
   function handleInputChange(event: any) {
-    //Atualizando os dados digitados no input
-    const dataUpdate = forms.update(formData, event.target.name, event.target.value);
-    //Aplicando a função de validação 
-    const dataValidate = forms.vaidate(dataUpdate, event.target.name);
-    //Atualizando o setFormData
-    setFormData(dataValidate);
+    const result = forms.updateAndValidate(formData, event.target.name, event.target.value);
+    setFormData(result);
   }
 
   function handleTurnDirty(name: string) {
-    const newFormData = forms.toDirty(formData, name);
+    const newFormData = forms.dirtyAndValidate(formData, name);
     setFormData(newFormData);
   }
 
   useEffect(() => {
-
-    const result = forms.toDirty(formData, "price");
-    console.log(result)
-
     if (isEditing) {
       productService.findById(Number(params.productId)).then((res) => {
         const newFormData = forms.updateAll(formData, res.data);
