@@ -90,11 +90,7 @@ export default function Login() {
                 />
 
                 <div className="ec-form-error">
-                  {/*
-                  <IconInputError />
-                  <h6>Campo Obrigatório</h6>
-                  Div para mensagem de erro
-                  */}
+                  {formData.username.message}
                 </div>
               </div>
 
