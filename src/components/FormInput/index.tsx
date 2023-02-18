@@ -1,10 +1,24 @@
+export default function FormInput(props: any) {
+  
+  const {
+    vaidation,
+    invalid = "false",
+    dirty = "false",
+    onTurnDirty,
+    ...inputProps
+  } = props;
 
-
-export default function FormInput(props : any) {
-  const { vaidation, invalid, ...inputProps } = props;
+  function handleBlur() {
+    onTurnDirty(props.name);
+  }
 
   return (
-    <input {...inputProps } data-invalid={invalid} />
+    <input
+      onBlur={handleBlur}
+      {...inputProps}
+      data-invalid={invalid}
+      data-dirty={dirty}
+    />
   );
 }
 
