@@ -9,6 +9,7 @@ import FormInput from "../../../components/FormInput";
 
 import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
+import FormTextArea from "../../../components/FormTextArea";
 
 export default function ProductForm() {
   const params = useParams();
@@ -45,6 +46,17 @@ export default function ProductForm() {
       name: "imgUrl",
       type: "text",
       placeholder: "Link da Imagem",
+    },
+    description: {
+      value: "",
+      id: "description",
+      name: "description",
+      type: "text",
+      placeholder: "Descrição",
+      validation: function (value: string) {
+        return /^.{10,}$/.test(value); 
+      },
+      message: "A descrição deve ter pelo menos 10 caracteres.",
     },
   });
 
@@ -102,6 +114,16 @@ export default function ProductForm() {
                   className="ec-form-control"
                   onChange={handleInputChange}
                 />
+              </div>
+
+              <div>
+                <FormTextArea
+                  {...formData.description}
+                  onTurnDirty={handleTurnDirty}
+                  className="ec-form-control ec-textarea"
+                  onChange={handleInputChange}
+                />
+                <div className="ec-form-error">{formData.description.message}</div>
               </div>
             </div>
 
