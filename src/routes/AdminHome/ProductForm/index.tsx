@@ -13,6 +13,7 @@ import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
 import * as categoryService from "../../../services/category-service";
 import { CategoryDTO } from "../../../models/category";
+import { selectStyles } from "../../../utils/select";
 
 
 
@@ -145,6 +146,9 @@ export default function ProductForm() {
 
               <div>
                 <FormSelect 
+                  className="ec-form-control ec-form-select-container"
+                  styles={selectStyles}
+                  
                   {...formData.categories}
                   onChange={(obj: any) => {
                     const newFormData = forms.updateAndValidate(formData, "categories", obj)

@@ -320,16 +320,8 @@ nav a {
   color: var(--color-font-placeholder);
 }
 
-.ec-select:invalid {
-  color: var(--color-font-placeholder);
-}
-
-.ec-select option[disabled] {
-  display: none;
-}
-
-.ec-select option {
-  color: var(--color-font-primary);
+.ec-form-select-container {
+  padding: unset;
 }
 
 .ec-textarea {

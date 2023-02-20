@@ -15,8 +15,15 @@ export default function FormSelect(props: any) {
   }
 
   return (
-    <div  className="ec-form-control " data-invalid={invalid} data-dirty={dirty}>
-      <Select {...selectProps} onBlur={handleBlur} />
+    <div  
+      className="ec-form-control ec-form-select-container" 
+      data-invalid={invalid} 
+      data-dirty={dirty}
+    >
+      <Select 
+        {...selectProps} 
+        onBlur={handleBlur} 
+      />
     </div>
   );
 }
