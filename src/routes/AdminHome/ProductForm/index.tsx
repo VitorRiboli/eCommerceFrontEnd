@@ -6,15 +6,24 @@ import { Link, useParams } from "react-router-dom";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import ButtonSecondary from "../../../components/ButtonSecondary";
 import FormInput from "../../../components/FormInput";
+import FormTextArea from "../../../components/FormTextArea";
+import FormSelect from "../../../components/FormSelect";
 
 import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
-import FormTextArea from "../../../components/FormTextArea";
+import * as categoryService from "../../../services/category-service";
+import { CategoryDTO } from "../../../models/category";
+
+
+
 
 export default function ProductForm() {
+
   const params = useParams();
 
   const isEditing = params.productId !== "create";
+
+  const [categories, setCategories] = useState<CategoryDTO[]>([]);
 
   const [formData, setFormData] = useState<any>({
     name: {
@@ -58,6 +67,16 @@ export default function ProductForm() {
       },
       message: "A descrição deve ter pelo menos 10 caracteres.",
     },
+    categories: {
+      value: [],
+      id: "categories",
+      name: "categories",
+      placeholder: "Categorias",
+      validation: function(value : CategoryDTO[]) {
+        return value.length > 0; //retorna true se tiver ao menos uma categoria selecionada 
+      },
+      message: "Escolha ao menos uma categoria selecionada",
+    }
   });
 
   function handleInputChange(event: any) {
@@ -69,6 +88,14 @@ export default function ProductForm() {
     const newFormData = forms.dirtyAndValidate(formData, name);
     setFormData(newFormData);
   }
+
+  useEffect(() => {
+    categoryService.findAllRequest()
+      .then(res => {
+        setCategories(res.data)
+      })
+
+  }, [])
 
   useEffect(() => {
     if (isEditing) {
@@ -114,6 +141,22 @@ export default function ProductForm() {
                   className="ec-form-control"
                   onChange={handleInputChange}
                 />
+              </div>
+
+              <div>
+                <FormSelect 
+                  {...formData.categories}
+                  onChange={(obj: any) => {
+                    const newFormData = forms.updateAndValidate(formData, "categories", obj)
+                    setFormData(newFormData);
+                  }}
+                  onTurnDirty={handleTurnDirty}
+                  isMulti //Permite a multipa escolha
+                  options={categories} //variavel que trás as escolhas
+                  getOptionLabel={(obj : any) => obj.name} //trocando o nome da label por name
+                  getOptionValue={(obj : any) => String(obj.id)}
+                />
+                <div className="ec-form-error">{formData.categories.message}</div>
               </div>
 
               <div>
