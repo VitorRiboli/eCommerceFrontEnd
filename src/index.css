@@ -333,10 +333,22 @@ nav a {
 }
 
 .dsc-form-error {
-  color: var(--dsc-color-error);
+  color: var(--color-error);
   font-size: 12px;
   padding-left: 4px;
   display: none;
+}
+
+.ec-form-global-error {
+  border: 1px solid var(--color-error);
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-error);
 }
 
 .ec-form-control[data-invalid="true"][data-dirty="true"] {

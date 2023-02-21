@@ -15,11 +15,12 @@ import * as authService from "../../../services/auth-service";
 import { ContextToken } from "../../../utils/context-token";
 import * as forms from "../../../utils/forms";
 
-
 export default function Login() {
   const navigate = useNavigate();
 
   const { setContextTokenPayload } = useContext(ContextToken);
+
+  const [submitResponseFail, setSubmitResponseFail] = useState(false);
 
   const [formData, setFormData] = useState<any>({
     username: {
@@ -47,6 +48,14 @@ export default function Login() {
   function handleSubmit(event: any) {
     event.preventDefault();
 
+    //verificar formulário
+    setSubmitResponseFail(false)
+    const formDataValidated = forms.dirtyAndValidateAll(formData);
+    if (forms.hasAnyInvalid(formDataValidated)) {
+      setFormData(formDataValidated);
+      return;
+    }
+
     authService
       .loginRequest(forms.toValues(formData))
       .then((res) => {
@@ -54,8 +63,8 @@ export default function Login() {
         setContextTokenPayload(authService.getAccessTokenPayload()!); //espera argumento undefined, ! para tirar o erro, está atuaizando normal
         navigate("/cart");
       })
-      .catch((err) => {
-        console.log("Erro no login: ", err);
+      .catch(() => {
+        setSubmitResponseFail(true)
       });
   }
 
@@ -65,7 +74,7 @@ export default function Login() {
 
   function handleTurnDirty(name: string) {
     setFormData(forms.dirtyAndValidate(formData, name));
-  } 
+  }
 
   return (
     <main>
@@ -89,9 +98,7 @@ export default function Login() {
                   */
                 />
 
-                <div className="ec-form-error">
-                  {formData.username.message}
-                </div>
+                <div className="ec-form-error">{formData.username.message}</div>
               </div>
 
               <div>
@@ -117,6 +124,12 @@ export default function Login() {
                 </div>
               </div>
             </div>
+
+            {submitResponseFail && (
+              <div className="ec-form-global-error ">
+                Usuário ou senha inválidos
+              </div>
+            )}
 
             <div className="ec-login-form-btns ec-mt20">
               <button type="submit" className="ec-btn ec-btn-login">

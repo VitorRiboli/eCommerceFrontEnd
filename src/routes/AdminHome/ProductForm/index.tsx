@@ -220,9 +220,9 @@ export default function ProductForm() {
               <Link to="/admin/products" style={{ textDecoration: "none" }}>
                 <ButtonSecondary text="Cancelar" />
               </Link>
-              <div onClick={handleSubmit}>
-                <ButtonPrimary text="Salvar" />
-              </div>
+              <button type="submit" className="ec-btn ec-btn-login">
+                Salvar
+              </button>
             </div>
           </form>
         </div>
