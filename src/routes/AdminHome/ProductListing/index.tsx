@@ -76,6 +76,10 @@ export default function ProductListing() {
     });
   }
 
+  function handleUpdateClick(productId: number) {
+    navigate(`/admin/products/${productId}`)
+  }
+
   function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
     if (answer) {
       productService
@@ -131,7 +135,9 @@ export default function ProductListing() {
                 price={product.price}
                 name={product.name}
                 imgUrl={product.imgUrl}
+
                 onDialogView={() => handleDeleteClick(product.id)}
+                onUpdateClick={() => handleUpdateClick(product.id)}
               />
             ))}
           </tbody>

@@ -322,6 +322,7 @@ nav a {
 
 .ec-form-select-container {
   padding: unset;
+  height: unset;
 }
 
 .ec-textarea {

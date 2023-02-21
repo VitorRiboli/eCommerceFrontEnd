@@ -6,7 +6,8 @@ type Props = {
   price: number,
   name: string,
   imgUrl: string,
-  onDialogView: Function
+  onDialogView: Function,
+  onUpdateClick: Function
 }
 
 export default function AdminListingCard({...product} : Props) {
@@ -24,7 +25,11 @@ export default function AdminListingCard({...product} : Props) {
       <td className="ec-tb768">R$ {product.price.toFixed(2)}</td>
       <td className="ec-txt-left">{product.name}</td>
       <td>
-        <img className="ec-product-listing-btn" src={IconEdit} alt="Editar" />
+        <img 
+          onClick={() => product.onUpdateClick(product.id)}
+          className="ec-product-listing-btn" 
+          src={IconEdit} 
+          alt="Editar" />
       </td>
       <td>
         <img

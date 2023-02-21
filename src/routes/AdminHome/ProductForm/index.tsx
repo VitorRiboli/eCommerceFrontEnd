@@ -15,11 +15,7 @@ import * as categoryService from "../../../services/category-service";
 import { CategoryDTO } from "../../../models/category";
 import { selectStyles } from "../../../utils/select";
 
-
-
-
 export default function ProductForm() {
-
   const params = useParams();
 
   const isEditing = params.productId !== "create";
@@ -35,7 +31,7 @@ export default function ProductForm() {
       placeholder: "Nome",
       validation: function (value: string) {
         //return value.length >= 3 && value.length <= 80;
-        return /^.{3,80}$/.test(value); 
+        return /^.{3,80}$/.test(value);
       },
       message: "Favor informar um nome de 3 a 80 caracteres.",
     },
@@ -64,7 +60,7 @@ export default function ProductForm() {
       type: "text",
       placeholder: "Descrição",
       validation: function (value: string) {
-        return /^.{10,}$/.test(value); 
+        return /^.{10,}$/.test(value);
       },
       message: "A descrição deve ter pelo menos 10 caracteres.",
     },
@@ -73,15 +69,19 @@ export default function ProductForm() {
       id: "categories",
       name: "categories",
       placeholder: "Categorias",
-      validation: function(value : CategoryDTO[]) {
-        return value.length > 0; //retorna true se tiver ao menos uma categoria selecionada 
+      validation: function (value: CategoryDTO[]) {
+        return value.length > 0; //retorna true se tiver ao menos uma categoria selecionada
       },
       message: "Escolha ao menos uma categoria selecionada",
-    }
+    },
   });
 
   function handleInputChange(event: any) {
-    const result = forms.updateAndValidate(formData, event.target.name, event.target.value);
+    const result = forms.updateAndValidate(
+      formData,
+      event.target.name,
+      event.target.value
+    );
     setFormData(result);
   }
 
@@ -91,12 +91,10 @@ export default function ProductForm() {
   }
 
   useEffect(() => {
-    categoryService.findAllRequest()
-      .then(res => {
-        setCategories(res.data)
-      })
-
-  }, [])
+    categoryService.findAllRequest().then((res) => {
+      setCategories(res.data);
+    });
+  }, []);
 
   useEffect(() => {
     if (isEditing) {
@@ -107,11 +105,22 @@ export default function ProductForm() {
     }
   }, []);
 
+  function handleSubmit(event: any) {
+    event.preventDefault();
+
+    const formDataValidated = forms.dirtyAndValidateAll(formData);
+    if(forms.hasAnyInvalid(formDataValidated)) {
+      setFormData(formDataValidated)
+      return;
+    }
+    
+  }
+
   return (
     <main>
       <section id="product-form-section" className="ec-container">
         <div className="ec-product-form-container">
-          <form className="ec-card ec-form">
+          <form className="ec-card ec-form" onSubmit={handleSubmit}>
             <h2>Dados do Produto</h2>
 
             <div className="ec-form-controls-container">
@@ -145,22 +154,27 @@ export default function ProductForm() {
               </div>
 
               <div>
-                <FormSelect 
+                <FormSelect
                   className="ec-form-control ec-form-select-container"
                   styles={selectStyles}
-                  
                   {...formData.categories}
                   onChange={(obj: any) => {
-                    const newFormData = forms.updateAndValidate(formData, "categories", obj)
+                    const newFormData = forms.updateAndValidate(
+                      formData,
+                      "categories",
+                      obj
+                    );
                     setFormData(newFormData);
                   }}
                   onTurnDirty={handleTurnDirty}
                   isMulti //Permite a multipa escolha
                   options={categories} //variavel que trás as escolhas
-                  getOptionLabel={(obj : any) => obj.name} //trocando o nome da label por name
-                  getOptionValue={(obj : any) => String(obj.id)}
+                  getOptionLabel={(obj: any) => obj.name} //trocando o nome da label por name
+                  getOptionValue={(obj: any) => String(obj.id)}
                 />
-                <div className="ec-form-error">{formData.categories.message}</div>
+                <div className="ec-form-error">
+                  {formData.categories.message}
+                </div>
               </div>
 
               <div>
@@ -170,7 +184,9 @@ export default function ProductForm() {
                   className="ec-form-control ec-textarea"
                   onChange={handleInputChange}
                 />
-                <div className="ec-form-error">{formData.description.message}</div>
+                <div className="ec-form-error">
+                  {formData.description.message}
+                </div>
               </div>
             </div>
 
@@ -178,7 +194,10 @@ export default function ProductForm() {
               <Link to="/admin/products" style={{ textDecoration: "none" }}>
                 <ButtonSecondary text="Cancelar" />
               </Link>
-              <ButtonPrimary text="Salvar" />
+              <div 
+                onClick={handleSubmit}>
+                <ButtonPrimary text="Salvar" />
+              </div>
             </div>
           </form>
         </div>
