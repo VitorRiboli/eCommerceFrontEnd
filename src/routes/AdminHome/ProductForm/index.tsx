@@ -113,7 +113,10 @@ export default function ProductForm() {
       setFormData(formDataValidated)
       return;
     }
+
+    const requestBody = forms.toValues(formData);
     
+    console.log(requestBody);
   }
 
   return (

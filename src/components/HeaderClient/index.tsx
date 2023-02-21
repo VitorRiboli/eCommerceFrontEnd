@@ -4,7 +4,7 @@ import { useContext} from "react";
 
 import { Link } from "react-router-dom";
 
-import IconUser from "./iconUser";
+//import IconUser from "./iconUser";
 import CartIcon from "../CarIcon";
 
 import iconAdmin from "../../assets/images/admin.svg";
@@ -47,11 +47,6 @@ export default function HeaderClient() {
               </div>
             </Link>
 
-            <div className="ec-menu-item">
-              <Link to={"/myaccount"}>
-                <IconUser />
-              </Link>
-            </div>
           </div>
 
          <LoggedUser />
