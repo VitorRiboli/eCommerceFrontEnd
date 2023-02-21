@@ -113,20 +113,25 @@ export default function ProductForm() {
     event.preventDefault();
 
     const formDataValidated = forms.dirtyAndValidateAll(formData);
+
     if (forms.hasAnyInvalid(formDataValidated)) {
       setFormData(formDataValidated);
       return;
     }
 
     const requestBody = forms.toValues(formData);
+
     if (isEditing) {
       requestBody.id = params.productId;
     }
 
-    productService.updateRequest(requestBody)
-      .then(res => {
-        navigate(`/admin/products`)
-      })
+    const request = isEditing
+      ? productService.updateRequest(requestBody)
+      : productService.insertRequest(requestBody);
+
+    request.then((res) => {
+      navigate(`/admin/products`);
+    });
   }
 
   return (
