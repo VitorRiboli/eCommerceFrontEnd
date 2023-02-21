@@ -1,7 +1,7 @@
 import "./styles.css";
 
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ButtonPrimary from "../../../components/ButtonPrimary";
 import ButtonSecondary from "../../../components/ButtonSecondary";
@@ -12,12 +12,16 @@ import FormSelect from "../../../components/FormSelect";
 import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
 import * as categoryService from "../../../services/category-service";
+
 import { CategoryDTO } from "../../../models/category";
 import { selectStyles } from "../../../utils/select";
 
 export default function ProductForm() {
   const params = useParams();
 
+  const navigate = useNavigate();
+
+  //Verifica se é edição ou atualização
   const isEditing = params.productId !== "create";
 
   const [categories, setCategories] = useState<CategoryDTO[]>([]);
@@ -109,14 +113,20 @@ export default function ProductForm() {
     event.preventDefault();
 
     const formDataValidated = forms.dirtyAndValidateAll(formData);
-    if(forms.hasAnyInvalid(formDataValidated)) {
-      setFormData(formDataValidated)
+    if (forms.hasAnyInvalid(formDataValidated)) {
+      setFormData(formDataValidated);
       return;
     }
 
     const requestBody = forms.toValues(formData);
-    
-    console.log(requestBody);
+    if (isEditing) {
+      requestBody.id = params.productId;
+    }
+
+    productService.updateRequest(requestBody)
+      .then(res => {
+        navigate(`/admin/products`)
+      })
   }
 
   return (
@@ -197,8 +207,7 @@ export default function ProductForm() {
               <Link to="/admin/products" style={{ textDecoration: "none" }}>
                 <ButtonSecondary text="Cancelar" />
               </Link>
-              <div 
-                onClick={handleSubmit}>
+              <div onClick={handleSubmit}>
                 <ButtonPrimary text="Salvar" />
               </div>
             </div>

@@ -12,8 +12,8 @@ export default function HeaderAdmin() {
   return (
     <header className="ec-header-admin">
       <nav className="ec-container">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <h1 className="ec-admin-title">Top Admin</h1>
+        <Link to="/admin" style={{ textDecoration: "none" }}>
+          <h1 className="ec-admin-title">Admin</h1>
         </Link>
         
 
